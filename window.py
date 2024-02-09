@@ -17,10 +17,13 @@ class TicButton():
         self.button = ttk.Button(frame, text=" ", style="my.TButton", command=self.button_click)
         self.button.grid(row=self.y, column=self.x, ipady=50, ipadx=10, sticky="nsew")
     def button_click(self):
-        print(self.x, self.y)
+        if not self.button["text"] in ("X","0"):
+            # Добавить выбор знака
+            self.button["text"] = "X"
 
 
-# цикл для создания списка
+# Цикл для создания списка
+
 board = []
 row = []
 for i in range(3):
