@@ -47,14 +47,14 @@ class TicButton():
         # hor
         for row in easy_board:
             if row.count("X") == 3 or row.count("0") == 3:
-                exit()
+                quit()
         # ver
         h = []
         for i in range(3):
             for row in easy_board:
                 h.append(row[i])
             if h.count("X") == 3 or h.count("0") == 3:
-                exit()
+                quit()
             else:
                 h=[]
 
@@ -62,7 +62,7 @@ class TicButton():
         condition1 = easy_board[0][0] == easy_board[1][1] == easy_board[2][2] and easy_board[0][0] in ("X", "0")
         condition2 = easy_board[2][0] == easy_board[1][1] == easy_board[0][2] and easy_board[2][0] in ("X", "0")
         if condition1 or condition2:
-            exit()
+            quit()
 
 
 # Цикл для создания списка
