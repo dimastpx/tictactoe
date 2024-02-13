@@ -1,44 +1,90 @@
+import sys
 from random import randint
+import tkinter as tk
+from tkinter import ttk
+import sys
+
+window = tk.Tk()
+window.geometry("800x600")
+frame = ttk.Frame(window, width=500, height=500)
+frame.grid(sticky="nsew")
+
+style = ttk.Style()
+style.configure('my.TButton', font=('Helvetica', 20))
+
+class TicButton():
+    def __init__(self, corx = int, cory = int):
+        self.x = corx
+        self.y = cory
+        self.button = ttk.Button(frame, text=" ", style="my.TButton", command=self.button_click)
+        self.button.grid(row=self.y, column=self.x, ipady=50, ipadx=10, sticky="nsew")
+
+    # Событие нажатия на кнопку
+    def button_click(self):
+        if not self.button["text"] in ("X","0"):
+            # Добавить выбор знака
+            self.button["text"] = "X"
+            self.win_test()
+            self.computer()
+
+    # Компьютер ходит
+    def computer(self):
+        global board
+        compx = randint(0,2)
+        compy = randint(0,2)
+        if not board[compy][compx].button["text"] in ("X","0"):
+            board[compy][compx].button["text"] = "0"
+            self.win_test()
+        else:
+            self.computer()
+
+# Проверка (не трогать)
+    def win_test(self):
+        global board, easy_board
+        for i in range(3):
+            for j in range(3):
+                easy_board[j][i] = board[j][i].button["text"]
+        print(easy_board)
+
+        # hor
+        for row in easy_board:
+            if row.count("X") == 3 or row.count("0") == 3:
+                sys.exit()
+        # ver
+        h = []
+        for i in range(3):
+            for row in easy_board:
+                h.append(row[i])
+            if h.count("X") == 3 or h.count("0") == 3:
+                sys.exit()
+            else:
+                h=[]
+
+        # diag
+        condition1 = easy_board[0][0] == easy_board[1][1] == easy_board[2][2] and easy_board[0][0] in ("X", "0")
+        condition2 = easy_board[2][0] == easy_board[1][1] == easy_board[0][2] and easy_board[2][0] in ("X", "0")
+        if condition1 or condition2:
+            sys.exit()
 
 
-row1 = ["1", "2", "3"]
-row2 = ["1", "2", "3"]
-row3 = ["1", "2", "3"]
-board = [row1, row2, row3]
+# Цикл для создания списка
 
+board = []
+row = []
+for i in range(3):
+    for j in range(3):
+        row.append(TicButton(j, i))
+    board.append(row)
+    row = []
 
-def main(board):
-    print("Ваш ход. Пишите так: столб строка (пример: 12)")
-    turnx, turny = (int(i) - 1 for i in (input()))
-    if board[turny][turnx] not in ["X", "O"]:
-        board[turny][turnx] = "X"
-        board = computer(board)
-        output(board)
-        win_check(board)
-
-    else:
-        print("Сдесь уже занято")
-    main(board)
-
-def computer(board2):
-    compx = randint(0,2)
-    compy = randint(0,2)
-    print(compy + 1, compx + 1)
-    if board2[compy][compx] not in ["x","0"]:
-        board2[compx][compy] = "O"
-    else:
-        computer(board2)
-    return board2
-def output(board1):
-    for i in board1:
-        print(i)
-
-def win_check(board):
-    for i in range(3):
-        if board[i][0] == board[i][1] == board[i][2]:
-            print("You win!")
-            exit()
+easy_board = []
+for i in range(3):
+    for j in range(3):
+        row.append(board[i][j])
+    easy_board.append(row)
+    row = []
 
 
 
-root.mainloop()
+
+window.mainloop()
