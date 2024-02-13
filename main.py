@@ -8,11 +8,11 @@ window.geometry("800x600")
 frame = ttk.Frame(window, width=600, height=600)
 frame.grid(row=2, column=2, sticky="nsew")
 
-label= ttk.Label(frame, text="      ")
-label.grid()
-
 style = ttk.Style()
 style.configure('my.TButton', font=('Helvetica', 20))
+
+label = ttk.Label(frame, text="", style="my.TButton")
+label.grid(row=3, column=4)
 
 game = True
 
@@ -56,12 +56,11 @@ class TicButton():
         # hor
         for row in easy_board:
             if row.count("X") == 3:
-                game = False
-                print("X win!")
+                self.win_set("X")
 
             elif row.count("0") == 3:
                 game = False
-                print("0 win!")
+                self.win_set("0")
 
         # ver
         h = []
@@ -69,12 +68,11 @@ class TicButton():
             for row in easy_board:
                 h.append(row[i])
             if h.count("X") == 3:
-                game = False
-                print("X win!")
+                self.win_set("X")
 
             elif h.count("0") == 3:
                 game = False
-                print("0 win!")
+                self.win_set("0")
 
             else:
                 h=[]
@@ -84,8 +82,12 @@ class TicButton():
             condition1 = easy_board[0][0] == easy_board[1][1] == easy_board[2][2] and easy_board[0][0] == xo
             condition2 = easy_board[2][0] == easy_board[1][1] == easy_board[0][2] and easy_board[2][0] == xo
             if condition1 or condition2:
-                game = False
-                print(f"{xo} win!")
+                self.win_set(xo)
+    def win_set(self, win):
+        global game, label
+        game = False
+        print(win)
+        label['text'] = f"{win} win!"
 
 
 
