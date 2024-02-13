@@ -2,7 +2,7 @@ import sys
 from random import randint
 import tkinter as tk
 from tkinter import ttk
-import sys
+
 
 window = tk.Tk()
 window.geometry("800x600")
@@ -11,6 +11,8 @@ frame.grid(sticky="nsew")
 
 style = ttk.Style()
 style.configure('my.TButton', font=('Helvetica', 20))
+
+game = True
 
 class TicButton():
     def __init__(self, corx = int, cory = int):
@@ -21,53 +23,71 @@ class TicButton():
 
     # Событие нажатия на кнопку
     def button_click(self):
-        if not self.button["text"] in ("X","0"):
-            # Добавить выбор знака
-            self.button["text"] = "X"
-            self.win_test()
-            self.computer()
+        global game
+        if game:
+            if not self.button["text"] in ("X","0"):
+                # Добавить выбор знака
+                self.button["text"] = "X"
+                self.win_test()
+                self.computer()
 
     # Компьютер ходит
     def computer(self):
-        global board
-        compx = randint(0,2)
-        compy = randint(0,2)
-        if not board[compy][compx].button["text"] in ("X","0"):
-            board[compy][compx].button["text"] = "0"
-            self.win_test()
-        else:
-            self.computer()
+        global board, game
+        if game:
+            compx = randint(0,2)
+            compy = randint(0,2)
+            if not board[compy][compx].button["text"] in ("X","0"):
+                board[compy][compx].button["text"] = "0"
+                self.win_test()
+            else:
+                self.computer()
 
 # Проверка (не трогать)
     def win_test(self):
-        global board, easy_board
+        global board, easy_board, game
         for i in range(3):
             for j in range(3):
                 easy_board[j][i] = board[j][i].button["text"]
-        print(easy_board)
+
 
         # hor
         for row in easy_board:
-            if row.count("X") == 3 or row.count("0") == 3:
-                sys.exit()
+            if row.count("X") == 3:
+                game = False
+                print("X win!")
+
+            elif row.count("0") == 3:
+                game = False
+                print("0 win!")
+
         # ver
         h = []
         for i in range(3):
             for row in easy_board:
                 h.append(row[i])
-            if h.count("X") == 3 or h.count("0") == 3:
-                sys.exit()
+            if h.count("X") == 3:
+                game = False
+                print("X win!")
+
+            elif h.count("0") == 3:
+                game = False
+                print("0 win!")
+
             else:
                 h=[]
 
         # diag
-        condition1 = easy_board[0][0] == easy_board[1][1] == easy_board[2][2] and easy_board[0][0] in ("X", "0")
-        condition2 = easy_board[2][0] == easy_board[1][1] == easy_board[0][2] and easy_board[2][0] in ("X", "0")
-        if condition1 or condition2:
-            sys.exit()
+        for xo in ("X","0"):
+            condition1 = easy_board[0][0] == easy_board[1][1] == easy_board[2][2] and easy_board[0][0] == xo
+            condition2 = easy_board[2][0] == easy_board[1][1] == easy_board[0][2] and easy_board[2][0] == xo
+            if condition1 or condition2:
+                game = False
+                print(f"{xo} win!")
 
 
-# Цикл для создания списка
+
+# Циклы для создания списков
 
 board = []
 row = []
