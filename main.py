@@ -1,4 +1,3 @@
-import sys
 from random import randint
 import tkinter as tk
 from tkinter import ttk
@@ -6,8 +5,11 @@ from tkinter import ttk
 
 window = tk.Tk()
 window.geometry("800x600")
-frame = ttk.Frame(window, width=500, height=500)
-frame.grid(sticky="nsew")
+frame = ttk.Frame(window, width=600, height=600)
+frame.grid(row=2, column=2, sticky="nsew")
+
+label= ttk.Label(frame, text="      ")
+label.grid()
 
 style = ttk.Style()
 style.configure('my.TButton', font=('Helvetica', 20))
@@ -19,7 +21,7 @@ class TicButton():
         self.x = corx
         self.y = cory
         self.button = ttk.Button(frame, text=" ", style="my.TButton", command=self.button_click)
-        self.button.grid(row=self.y, column=self.x, ipady=50, ipadx=10, sticky="nsew")
+        self.button.grid(row=self.y+2, column=self.x+1, ipady=50, ipadx=10, sticky="nsew")
 
     # Событие нажатия на кнопку
     def button_click(self):
