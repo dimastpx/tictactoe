@@ -44,13 +44,6 @@ def start():
         easy_board.append(row)
         row = []
 
-# def remove():
-#     global board
-#     for row in board:
-#         for button in row:
-#             board[row][button].destroy()
-
-
 
 
 button_reset = ttk.Button(frame, text="Перезапустить", style="my.TButton", command=start)
