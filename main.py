@@ -8,8 +8,8 @@ window.geometry("800x600")
 frame = ttk.Frame(window, width=600, height=600)
 frame.grid(row=2, column=2, sticky="nsew")
 
-style = ttk.Style()
-style.configure('my.TButton', font=('Helvetica', 20))
+style_but = ttk.Style()
+style_but.configure('my.TButton', font=('Helvetica', 20))
 
 style_win = ttk.Style()
 style_win.configure('my.TLabel', font=('Helvetica', 20))
@@ -120,7 +120,6 @@ class TicButton():
     def win_set(self, win):
         global game, label_win
         game = False
-        print(win)
         label_win['text'] = f"{win} win!"
 
 
