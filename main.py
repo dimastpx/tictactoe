@@ -2,9 +2,11 @@ from random import randint
 import tkinter as tk
 from tkinter import ttk
 
+import os
+
 
 window = tk.Tk()
-window.geometry("800x600")
+window.geometry("900x600")
 frame = ttk.Frame(window, width=600, height=600)
 frame.grid(row=2, column=2, sticky="nsew")
 
@@ -44,11 +46,15 @@ def start():
         easy_board.append(row)
         row = []
 
+def openator():
+    os.startfile("readme.txt")
 
 
 button_reset = ttk.Button(frame, text="Перезапустить", style="my.TButton", command=start)
 button_reset.grid(row=4, column=4)
 
+button_temp = ttk.Button(frame, text="История изменений", style="my.TButton", command=openator)
+button_temp.grid(row=5, column=4)
 
 class TicButton():
     def __init__(self, corx = int, cory = int):
