@@ -14,15 +14,23 @@ style.configure('my.TButton', font=('Helvetica', 20))
 style_win = ttk.Style()
 style_win.configure('my.TLabel', font=('Helvetica', 20))
 
-label = ttk.Label(frame, text="", style="my.TLabel")
-label.grid(row=3, column=4)
+label_win = ttk.Label(frame, text="", style="my.TLabel")
+label_win.grid(row=3, column=4)
 
+easy_board = []
+board = []
+row = []
+
+game = True
 
 def start():
     # Циклы для создания списков
-    global easy_board, board, row
+    global easy_board, board, row, game, label_win
+    label_win["text"] = "s"
     board = []
     row = []
+    game = True
+
     for i in range(3):
         for j in range(3):
             row.append(TicButton(j, i))
@@ -36,12 +44,18 @@ def start():
         easy_board.append(row)
         row = []
 
+# def remove():
+#     global board
+#     for row in board:
+#         for button in row:
+#             board[row][button].destroy()
+
+
+
 
 button_reset = ttk.Button(frame, text="Перезапустить", style="my.TButton", command=start)
 button_reset.grid(row=4, column=4)
 
-
-game = True
 
 class TicButton():
     def __init__(self, corx = int, cory = int):
@@ -111,15 +125,13 @@ class TicButton():
             if condition1 or condition2:
                 self.win_set(xo)
     def win_set(self, win):
-        global game, label
+        global game, label_win
         game = False
         print(win)
-        label['text'] = f"{win} win!"
+        label_win['text'] = f"{win} win!"
+
 
 # создание пустого игрового поля
-easy_board = []
-board = []
-row = []
 
 
 
