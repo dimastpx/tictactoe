@@ -26,7 +26,7 @@ game = True
 def start():
     # Циклы для создания списков
     global easy_board, board, row, game, label_win
-    label_win["text"] = "s"
+    label_win["text"] = ""
     board = []
     row = []
     game = True
