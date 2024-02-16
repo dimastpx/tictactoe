@@ -36,6 +36,7 @@ def versions():
 
 window = tk.Tk()
 window.geometry("900x600")
+window.title("Крестики-нолики")
 
 menu = tk.Menu(window)
 
