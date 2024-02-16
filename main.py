@@ -1,29 +1,8 @@
 from random import randint
 import tkinter as tk
-from tkinter import ttk
-
+from tkinter import ttk, messagebox
+import sys
 import os
-
-
-window = tk.Tk()
-window.geometry("900x600")
-frame = ttk.Frame(window, width=600, height=600)
-frame.grid(row=2, column=2, sticky="nsew")
-
-style_but = ttk.Style()
-style_but.configure('my.TButton', font=('Helvetica', 20))
-
-style_win = ttk.Style()
-style_win.configure('my.TLabel', font=('Helvetica', 20))
-
-label_win = ttk.Label(frame, text="", style="my.TLabel")
-label_win.grid(row=2, column=4)
-
-easy_board = []
-board = []
-row = []
-
-game = True
 
 def start():
     # Циклы для создания списков
@@ -46,15 +25,47 @@ def start():
         easy_board.append(row)
         row = []
 
-def openator():
-    os.startfile("readme.txt")
+def versions():
+    try:
+        open("readme.txt", "r")
+    except FileNotFoundError:
+        messagebox.showerror(title="Ой", message="Похоже, вайл с версиями где то потерялся")
+    else:
+        os.startfile("readme.txt")
 
+
+window = tk.Tk()
+window.geometry("900x600")
+
+menu = tk.Menu(window)
+
+menu_file = tk.Menu(menu, tearoff=0)
+menu_file.add_command(label="История изменений", command=versions)
+menu_file.add_command(label="Выйти", command=sys.exit)
+
+menu.add_cascade(label="Основное", menu=menu_file)
+window.config(menu=menu)
+
+frame = ttk.Frame(window, width=600, height=600)
+frame.grid(row=2, column=2, sticky="nsew")
+
+style_but = ttk.Style()
+style_but.configure('my.TButton', font=('Helvetica', 20))
+
+style_win = ttk.Style()
+style_win.configure('my.TLabel', font=('Helvetica', 20))
+
+label_win = ttk.Label(frame, text="", style="my.TLabel")
+label_win.grid(row=3, column=4)
+
+easy_board = []
+board = []
+row = []
+
+game = True
 
 button_reset = ttk.Button(frame, text="Перезапустить", style="my.TButton", command=start)
-button_reset.grid(row=3, column=4, ipadx=10, ipady=10, sticky="nesw")
-
-button_temp = ttk.Button(frame, text="История изменений", style="my.TButton", command=openator)
-button_temp.grid(row=4, column=4, ipadx=10, ipady=10, sticky="nesw")
+button_reset.grid(row=4, column=4, ipadx=10, ipady=10, sticky="nesw")
 
 class TicButton():
     def __init__(self, corx = int, cory = int):
