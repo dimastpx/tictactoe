@@ -47,7 +47,7 @@ def start():
         row = []
 
 def openator():
-    os.startfile("readme.txt")
+    os.startfile("readme.docx")
 
 
 button_reset = ttk.Button(frame, text="Перезапустить", style="my.TButton", command=start)
