@@ -17,7 +17,7 @@ style_win = ttk.Style()
 style_win.configure('my.TLabel', font=('Helvetica', 20))
 
 label_win = ttk.Label(frame, text="", style="my.TLabel")
-label_win.grid(row=3, column=4)
+label_win.grid(row=2, column=4)
 
 easy_board = []
 board = []
@@ -47,14 +47,14 @@ def start():
         row = []
 
 def openator():
-    os.startfile("readme.docx")
+    os.startfile("readme.txt")
 
 
 button_reset = ttk.Button(frame, text="Перезапустить", style="my.TButton", command=start)
-button_reset.grid(row=4, column=4)
+button_reset.grid(row=3, column=4, ipadx=10, ipady=10, sticky="nesw")
 
 button_temp = ttk.Button(frame, text="История изменений", style="my.TButton", command=openator)
-button_temp.grid(row=5, column=4)
+button_temp.grid(row=4, column=4, ipadx=10, ipady=10, sticky="nesw")
 
 class TicButton():
     def __init__(self, corx = int, cory = int):
