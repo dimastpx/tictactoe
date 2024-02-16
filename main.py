@@ -11,8 +11,35 @@ frame.grid(row=2, column=2, sticky="nsew")
 style = ttk.Style()
 style.configure('my.TButton', font=('Helvetica', 20))
 
-label = ttk.Label(frame, text="", style="my.TButton")
+style_win = ttk.Style()
+style_win.configure('my.TLabel', font=('Helvetica', 20))
+
+label = ttk.Label(frame, text="", style="my.TLabel")
 label.grid(row=3, column=4)
+
+
+def start():
+    # Циклы для создания списков
+    global easy_board, board, row
+    board = []
+    row = []
+    for i in range(3):
+        for j in range(3):
+            row.append(TicButton(j, i))
+        board.append(row)
+        row = []
+
+    easy_board = []
+    for i in range(3):
+        for j in range(3):
+            row.append(board[i][j])
+        easy_board.append(row)
+        row = []
+
+
+button_reset = ttk.Button(frame, text="Перезапустить", style="my.TButton", command=start)
+button_reset.grid(row=4, column=4)
+
 
 game = True
 
@@ -89,26 +116,13 @@ class TicButton():
         print(win)
         label['text'] = f"{win} win!"
 
-
-
-# Циклы для создания списков
-
+# создание пустого игрового поля
+easy_board = []
 board = []
 row = []
-for i in range(3):
-    for j in range(3):
-        row.append(TicButton(j, i))
-    board.append(row)
-    row = []
-
-easy_board = []
-for i in range(3):
-    for j in range(3):
-        row.append(board[i][j])
-    easy_board.append(row)
-    row = []
 
 
 
+start()
 
 window.mainloop()
